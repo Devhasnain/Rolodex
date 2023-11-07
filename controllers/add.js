@@ -74,7 +74,6 @@ export const EditAdd = async (req, res) => {
     try {
         let user = req.user;
         let addData = req.body;
-        console.log(addData)
         let file = req.file ?? null;
         let objectLength = Object?.keys(addData)?.length;
 
