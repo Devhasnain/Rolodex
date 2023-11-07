@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const AddsSchema = new mongoose.Schema({
     image: [{ type: String }],
     business_name: { type: String },
-    timing: [{ from: { type: String }, to: { type: String } }],
+    timing: { from: { type: String }, to: { type: String } },
     email: { type: String },
     phone: { type: String },
     website: { type: String },

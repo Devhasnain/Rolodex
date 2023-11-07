@@ -49,7 +49,7 @@ export const ApiGuard = async (req, res, next) => {
         let FindUser = await Users.findOne({ _id, email }).select(['-password']);
 
         if (!FindUser) {
-            return ErrroResponseHandler({ ...err404msg, res });
+            throw new Error("Authentication faild! User not found.")
         }
 
         req.user = FindUser;

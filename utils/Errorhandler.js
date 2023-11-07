@@ -20,7 +20,7 @@ export function Errorhandler(error, res) {
             statusCode = 500;
         }
     } else {
-        msg = error;
+        msg = error?.message;
         statusCode = 500;
     }
 

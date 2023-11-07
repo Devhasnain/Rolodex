@@ -44,6 +44,7 @@ export const createAdd = async (req, res) => {
             {
                 user: user._id,
                 add_id,
+                timing: { from: req.body.from, to: req.body.to },
                 ...addData
             }
         );
@@ -53,8 +54,7 @@ export const createAdd = async (req, res) => {
                 add: createAdd._id,
                 ...file
             });
-            let saveFile = await uploadFile.save();
-            createAdd.image = `${configurations.url}/add/image/${saveFile._id}`;
+            createAdd.image = `${configurations.url}/add/image/${uploadFile._id}`;
         }
 
 
@@ -65,6 +65,7 @@ export const createAdd = async (req, res) => {
         return res.status(200).json({ msg: "Add has been created successfuly.", status: true });
 
     } catch (error) {
+        console.log(error)
         return Errorhandler(error, res)
     }
 }
@@ -72,15 +73,12 @@ export const createAdd = async (req, res) => {
 export const EditAdd = async (req, res) => {
     try {
         let user = req.user;
-        console.log(user)
         let addData = req.body;
         console.log(addData)
         let file = req.file ?? null;
         let objectLength = Object?.keys(addData)?.length;
 
         let add = await Adds.findOne({ add_id: addData.add_id, user: user._id });
-
-        console.log(add)
 
         if (file) {
             await Files.findOneAndUpdate({ add: add._id }, { $set: { ...file } });
